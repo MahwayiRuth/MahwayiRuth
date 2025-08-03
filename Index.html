@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Manager App</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    h1 { margin-bottom: 20px; }
+    .task-form {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #0056b3; }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      width: 100%;
+      max-width: 400px;
+    }
+    li {
+      background: #fff;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .delete-btn, .complete-btn {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+    .delete-btn { background-color: #dc3545; }
+    .delete-btn:hover { background-color: #a71d2a; }
+    .complete-btn { background-color: #28a745; }
+    .complete-btn:hover { background-color: #1e7e34; }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+    #emptyMessage {
+      color: #888;
+      font-style: italic;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task Manager</h1>
+  <div class="task-form">
+    <input type="text" id="taskInput" placeholder="Enter a new task..." aria-label="Task input" />
+    <button onclick="addTask()">Add</button>
+  </div>
+  <ul id="taskList"></ul>
+  <p id="emptyMessage">No tasks yet. Add one!</p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('taskInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') addTask();
+      });
+      loadTasks();
+      toggleEmptyMessage();
+    });
+
+    function addTask() {
+      const taskInput = document.getElementById('taskInput');
+      const taskText = taskInput.value.trim();
+      if (!taskText) return;
+      const task = { text: taskText, completed: false };
+      const tasks = getTasks();
+      tasks.push(task);
+      saveTasks(tasks);
+      renderTasks();
+      taskInput.value = '';
+    }
+
+    function deleteTask(index) {
+      const tasks = getTasks();
+      tasks.splice(index, 1);
+      saveTasks(tasks);
+      renderTasks();
+    }
+
+    function toggleComplete(index) {
+      const tasks = getTasks();
+      tasks[index].completed = !tasks[index].completed;
+      saveTasks(tasks);
+      renderTasks();
+    }
+
+    function getTasks() {
+      return JSON.parse(localStorage.getItem('tasks')) || [];
+    }
+
+    function saveTasks(tasks) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function renderTasks() {
+      const taskList = document.getElementById('taskList');
+      taskList.innerHTML = '';
+      const tasks = getTasks();
+
+      tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+
+        const span = document.createElement('span');
+        span.textContent = task.text;
+        if (task.completed) span.classList.add('completed');
+
+        const completeBtn = document.createElement('button');
+        completeBtn.textContent = task.completed ? 'Undo' : 'Done';
+        completeBtn.className = 'complete-btn';
+        completeBtn.onclick = () => toggleComplete(index);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.onclick = () => deleteTask(index);
+
+        li.appendChild(span);
+        li.appendChild(completeBtn);
+        li.appendChild(deleteBtn);
+        taskList.appendChild(li);
+      });
+
+      toggleEmptyMessage();
+    }
+
+    function toggleEmptyMessage() {
+      const tasks = getTasks();
+      document.getElementById('emptyMessage').style.display = tasks.length ? 'none' : 'block';
+    }
+
+    function loadTasks() {
+      renderTasks();
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(console.error);
+    }
+  </script>
+</body>
+</html>
