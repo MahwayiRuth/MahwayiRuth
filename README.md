@@ -9,4 +9,4 @@ A simple, installable web-based task manager built with HTML, CSS, and JavaScrip
 - Mobile-first responsive UI
 
 ## 🔗 Live App
-https://MahwayiRuth.github.io/task-manager/
+https://MahwayiRuth.github.io/Task-manager/
