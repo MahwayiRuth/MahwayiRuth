@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,11 +9,26 @@
 <body>
   <div class="container">
     <h1>Task Manager</h1>
+    
     <div class="task-input">
       <input type="text" id="taskInput" placeholder="Enter a new task..." />
-      <input type="datetime-local" id="dueDateInput" />
+      <input type="date" id="dueDateInput" />
+      <label>
+        <input type="checkbox" id="reminderCheckbox" />
+        Set Reminder
+      </label>
       <button onclick="addTask()">Add Task</button>
     </div>
+
+    <div class="filters">
+      <button onclick="filterTasks('all')">All</button>
+      <button onclick="filterTasks('active')">Active</button>
+      <button onclick="filterTasks('completed')">Completed</button>
+    </div>
+
     <ul id="taskList"></ul>
-  </div>  <script src="script.js"></script></body>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
