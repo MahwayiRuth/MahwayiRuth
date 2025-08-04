@@ -9,22 +9,30 @@
 <body>
   <div class="container">
     <h1>Task Manager</h1>
-    <img src="banner.png" alt="Task Manager Banner" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px;" />
-      <input type="text" id="taskInput" placeholder="Enter a new task..." />
-      <input type="date" id="dueDateInput" />
-      <label>
-        <input type="checkbox" id="reminderCheckbox" />
-        Set Reminder
-      </label>
-      <button onclick="addTask()">Add Task</button>
-    </div>
 
-    <div class="filters">
+    <!-- ✅ Fixed image filename -->
+    <img src="task-icon.jpeg" alt="Task Manager Banner"
+      style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;" />
+
+    <!-- Task input -->
+    <input type="text" id="taskInput" placeholder="Enter a new task..." />
+    <input type="date" id="dueDateInput" />
+
+    <label>
+      <input type="checkbox" id="reminderCheckbox" />
+      Set Reminder
+    </label>
+
+    <button onclick="addTask()">Add Task</button>
+
+    <!-- Filter buttons -->
+    <div class="filters" style="margin-top: 1rem;">
       <button onclick="filterTasks('all')">All</button>
       <button onclick="filterTasks('active')">Active</button>
       <button onclick="filterTasks('completed')">Completed</button>
     </div>
 
+    <!-- Task list -->
     <ul id="taskList"></ul>
   </div>
 
