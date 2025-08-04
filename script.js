@@ -1,67 +1,98 @@
-// Save tasks in localStorage
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let currentFilter = "all";
+
 function saveTasks() {
-  const tasks = Array.from(document.querySelectorAll("#taskList li")).map((li) => {
-    return {
-      text: li.querySelector("span").innerText,
-      completed: li.classList.contains("completed")
-    };
-  });
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Load tasks on page load
-function loadTasks() {
-  const saved = JSON.parse(localStorage.getItem("tasks") || "[]");
-  saved.forEach(task => {
-    addTask(task.text, task.completed);
+function renderTasks() {
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = "";
+
+  const filteredTasks = tasks.filter(task => {
+    if (currentFilter === "all") return true;
+    if (currentFilter === "active") return !task.completed;
+    if (currentFilter === "completed") return task.completed;
+  });
+
+  filteredTasks.forEach((task, index) => {
+    const li = document.createElement("li");
+    li.className = task.completed ? "completed" : "";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
+    checkbox.onchange = () => toggleTask(index);
+
+    const span = document.createElement("span");
+    span.textContent = task.text;
+    span.style.marginLeft = "0.5rem";
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.onclick = () => editTask(index);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.onclick = () => deleteTask(index);
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    li.appendChild(editBtn);
+    li.appendChild(deleteBtn);
+
+    taskList.appendChild(li);
   });
 }
 
-function addTask(text = null, completed = false) {
+function addTask() {
   const input = document.getElementById("taskInput");
-  const taskText = text || input.value.trim();
+  const dueDate = document.getElementById("dueDateInput").value;
+  const reminder = document.getElementById("reminderCheckbox").checked;
+
+  const taskText = input.value.trim();
   if (taskText === "") return;
 
-  const li = document.createElement("li");
-  if (completed) li.classList.add("completed");
+  const newTask = {
+    text: taskText,
+    completed: false,
+    dueDate,
+    reminder
+  };
 
-  li.innerHTML = `
-    <span onclick="toggleComplete(this)">${taskText}</span>
-    <button onclick="deleteTask(this)">Delete</button>
-  `;
+  tasks.push(newTask);
+  saveTasks();
+  renderTasks();
 
-  document.getElementById("taskList").appendChild(li);
   input.value = "";
+  document.getElementById("dueDateInput").value = "";
+  document.getElementById("reminderCheckbox").checked = false;
+}
+
+function toggleTask(index) {
+  tasks[index].completed = !tasks[index].completed;
   saveTasks();
+  renderTasks();
 }
 
-function deleteTask(button) {
-  button.parentElement.remove();
+function deleteTask(index) {
+  tasks.splice(index, 1);
   saveTasks();
+  renderTasks();
 }
 
-function toggleComplete(span) {
-  span.parentElement.classList.toggle("completed");
-  saveTasks();
+function editTask(index) {
+  const newText = prompt("Edit your task:", tasks[index].text);
+  if (newText !== null && newText.trim() !== "") {
+    tasks[index].text = newText.trim();
+    saveTasks();
+    renderTasks();
+  }
 }
 
-function applyFilter(filter) {
-  const tasks = document.querySelectorAll("#taskList li");
-  tasks.forEach((li) => {
-    li.style.display = "block";
-    if (filter === "active" && li.classList.contains("completed")) {
-      li.style.display = "none";
-    } else if (filter === "completed" && !li.classList.contains("completed")) {
-      li.style.display = "none";
-    }
-  });
+function filterTasks(filter) {
+  currentFilter = filter;
+  renderTasks();
 }
 
-document.querySelectorAll(".filter-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const filter = btn.getAttribute("data-filter");
-    applyFilter(filter);
-  });
-});
-
-window.onload = loadTasks;
+renderTasks();
