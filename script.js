@@ -9,6 +9,8 @@ function renderTasks() {
   const taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
 
+  const today = new Date().toISOString().split("T")[0];
+
   const filteredTasks = tasks.filter(task => {
     if (currentFilter === "all") return true;
     if (currentFilter === "active") return !task.completed;
@@ -28,6 +30,11 @@ function renderTasks() {
     span.textContent = task.text;
     span.style.marginLeft = "0.5rem";
 
+    const meta = document.createElement("div");
+    meta.style.fontSize = "0.8rem";
+    meta.style.color = "#888";
+    if (task.dueDate) meta.innerHTML = `📅 Due: ${task.dueDate}`;
+
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
     editBtn.onclick = () => editTask(index);
@@ -38,6 +45,7 @@ function renderTasks() {
 
     li.appendChild(checkbox);
     li.appendChild(span);
+    li.appendChild(meta);
     li.appendChild(editBtn);
     li.appendChild(deleteBtn);
 
@@ -63,6 +71,12 @@ function addTask() {
   tasks.push(newTask);
   saveTasks();
   renderTasks();
+
+  // Check for reminder today
+  const today = new Date().toISOString().split("T")[0];
+  if (reminder && dueDate === today) {
+    alert(`🔔 Reminder: Your task "${taskText}" is due today!`);
+  }
 
   input.value = "";
   document.getElementById("dueDateInput").value = "";
@@ -95,4 +109,5 @@ function filterTasks(filter) {
   renderTasks();
 }
 
-renderTasks();
+// Load tasks on page load
+document.addEventListener("DOMContentLoaded", renderTasks);
