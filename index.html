@@ -3,18 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>task Manager</title>
+  <title>Task Manager</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>task Manager</h1>
+    <h1>Task Manager</h1>
 
-    <!-- ✅ Fixed image filename -->
-    <img src="task-icon.jpeg" alt="task Manager Banner"
+    <img src="task-icon.jpeg" alt="Task Manager Banner"
       style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;" />
 
-    <!-- task input -->
     <input type="text" id="taskInput" placeholder="Enter a new task..." />
     <input type="date" id="dueDateInput" />
 
@@ -23,16 +21,14 @@
       Set Reminder
     </label>
 
-    <button onclick="addtask()">Add task</button>
+    <button onclick="addTask()">Add Task</button>
 
-    <!-- Filter buttons -->
     <div class="filters" style="margin-top: 1rem;">
       <button onclick="filterTasks('all')">All</button>
       <button onclick="filterTasks('active')">Active</button>
       <button onclick="filterTasks('completed')">Completed</button>
     </div>
 
-    <!-- task list -->
     <ul id="taskList"></ul>
   </div>
 
