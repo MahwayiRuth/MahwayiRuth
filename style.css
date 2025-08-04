@@ -1,55 +1,44 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f3f4f6;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+  background-color: #f4f4f4;
 }
 
 .container {
+  max-width: 500px;
+  margin: auto;
   background: white;
-  margin-top: 60px;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 400px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  text-align: center;
-  color: #1f2937;
+input[type="text"],
+input[type="date"],
+button {
+  width: 100%;
+  padding: 0.6rem;
+  margin: 0.3rem 0;
+  font-size: 1rem;
 }
 
-.task-input {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+label {
+  display: block;
+  margin: 0.5rem 0;
 }
 
-.task-input input {
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
-.task-input button {
-  padding: 10px 15px;
-  background-color: #1e40af;
-  color: white;
+.filters button {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+  background: #ddd;
+  border-radius: 5px;
 }
 
-.task-input button:hover {
-  background-color: #1c3faa;
+.filters button:hover {
+  background: #ccc;
 }
 
 ul {
@@ -58,25 +47,38 @@ ul {
 }
 
 li {
-  background: #f9fafb;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 6px;
+  background: #f9f9f9;
+  margin: 0.5rem 0;
+  padding: 0.6rem;
+  border-radius: 5px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
-li.completed {
+li span {
+  flex: 1;
+  margin-bottom: 0.3rem;
+}
+
+li.completed span {
   text-decoration: line-through;
-  opacity: 0.6;
+  color: gray;
 }
 
 li button {
-  background: red;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 8px;
-  cursor: pointer;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+}
+
+@media (min-width: 480px) {
+  li {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  li button {
+    margin-left: 0.5rem;
+    margin-top: 0;
+  }
 }
