@@ -36,7 +36,7 @@ function renderTask(task) {
   li.className = task.completed ? "completed" : "";
 
   li.innerHTML = `
-    <span ondblclick="editTask(this)">${task.text} ${task.dueDate ? "- Due: " + task.dueDate : ""}</span>
+    <span ondblclick="editTask(this)">${task.text}${task.dueDate ? " (Due: " + task.dueDate + ")" : ""}</span>
     <button onclick="toggleComplete(this)">✔</button>
     <button onclick="deleteTask(this)">Delete</button>
   `;
@@ -47,7 +47,7 @@ function renderTask(task) {
 function deleteTask(button) {
   const li = button.parentElement;
   const id = Number(li.getAttribute("data-id"));
-  tasks = tasks.filter(task => task.id !== id);
+  tasks = tasks.filter(t => t.id !== id);
   saveTasks();
   li.remove();
 }
@@ -77,8 +77,7 @@ function editTask(span) {
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     const filter = btn.getAttribute("data-filter");
-    const lis = taskList.querySelectorAll("li");
-    lis.forEach(li => {
+    document.querySelectorAll("#taskList li").forEach(li => {
       const id = Number(li.getAttribute("data-id"));
       const task = tasks.find(t => t.id === id);
       if (
@@ -98,7 +97,7 @@ function checkReminders() {
   const today = new Date().toISOString().split("T")[0];
   tasks.forEach(task => {
     if (task.dueDate && task.dueDate <= today && !task.completed) {
-      alert(`Reminder: Task "${task.text}" is due today or overdue!`);
+      alert(`Reminder: Task "${task.text}" is due today or earlier!`);
     }
   });
 }
