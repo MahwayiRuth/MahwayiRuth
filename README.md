@@ -1,4 +1,4 @@
-# 📝 Task Manager
+# 📝 task Manager
 
 A simple, installable web-based task manager built with HTML, CSS, and JavaScript.
 
