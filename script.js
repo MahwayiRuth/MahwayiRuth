@@ -11,10 +11,12 @@ const quotes = [
   "Small progress is still progress."
 ];
 
+// Save tasks to localStorage
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// Render tasks based on filter
 function renderTasks() {
   const taskList = document.getElementById("taskList");
   taskList.innerHTML = "";
@@ -29,23 +31,27 @@ function renderTasks() {
     const li = document.createElement("li");
     li.className = task.completed ? "completed" : "";
 
+    // Checkbox
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = task.completed;
     checkbox.onchange = () => toggleTask(index);
 
+    // Task text
     const span = document.createElement("span");
     span.textContent = task.text;
 
-    // Priority Badge
+    // Priority badge
     const priority = document.createElement("span");
     priority.className = "priority " + task.priority;
     priority.textContent = task.priority.toUpperCase();
 
+    // Edit button
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
     editBtn.onclick = () => editTask(index);
 
+    // Delete button
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.onclick = () => deleteTask(index);
@@ -60,6 +66,7 @@ function renderTasks() {
   });
 }
 
+// Add new task
 function addTask() {
   const input = document.getElementById("taskInput");
   const dueDate = document.getElementById("dueDateInput").value;
@@ -87,18 +94,21 @@ function addTask() {
   document.getElementById("priorityInput").value = "low";
 }
 
+// Toggle completed state
 function toggleTask(index) {
   tasks[index].completed = !tasks[index].completed;
   saveTasks();
   renderTasks();
 }
 
+// Delete task
 function deleteTask(index) {
   tasks.splice(index, 1);
   saveTasks();
   renderTasks();
 }
 
+// Edit task
 function editTask(index) {
   const newText = prompt("Edit your task:", tasks[index].text);
   if (newText !== null && newText.trim() !== "") {
@@ -108,16 +118,35 @@ function editTask(index) {
   }
 }
 
+// Filter tasks
 function filterTasks(filter) {
   currentFilter = filter;
   renderTasks();
 }
 
-// Quotes
+// Show random quote
 function newQuote() {
   const random = Math.floor(Math.random() * quotes.length);
   document.getElementById("quote").textContent = quotes[random];
 }
 
-// Load first quote
-newQuote();
+// Initialize app
+document.addEventListener("DOMContentLoaded", () => {
+  renderTasks();
+  newQuote();
+
+  // Attach Add Task button
+  const addBtn = document.getElementById("addTaskBtn");
+  addBtn.addEventListener("click", addTask);
+
+  // Enter key to add task
+  const input = document.getElementById("taskInput");
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") addTask();
+  });
+
+  // Optional: set up filter buttons
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => filterTasks(btn.dataset.filter));
+  });
+});
