@@ -3,7 +3,7 @@
 ============================ */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
   margin: 0;
   padding: 0;
 }
@@ -13,8 +13,8 @@ body {
   margin: 2rem auto;
   background: #fff;
   padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 /* ============================
@@ -30,6 +30,7 @@ img {
   display: block;
   margin: 0 auto 1rem;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 /* ============================
@@ -60,36 +61,56 @@ button {
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background 0.3s, transform 0.2s;
+  transition: all 0.3s ease;
 }
 
 button:hover {
   transform: scale(1.05);
 }
 
+/* Add Task button */
 #addTaskBtn {
-  background-color: #28a745;
+  background-color: #ff6b6b;
   color: #fff;
   width: 100%;
   margin-top: 0.5rem;
+  font-weight: bold;
 }
 
+#addTaskBtn:hover {
+  background-color: #ff4757;
+}
+
+/* Filter buttons */
 .filter-btn {
-  background-color: #007bff;
+  background-color: #1e90ff;
   color: #fff;
+  margin-right: 0.3rem;
 }
 
 .filter-btn:hover {
-  background-color: #0056b3;
+  background-color: #3742fa;
 }
 
-li button {
-  background-color: #ffc107;
+/* Edit/Delete buttons inside tasks */
+li button.edit-btn {
+  background-color: #ffa502;
   color: #fff;
+  margin-left: 0.3rem;
 }
 
-li button:hover {
-  background-color: #e0a800;
+li button.edit-btn:hover {
+  background-color: #ff7f50;
+}
+
+li button.delete-btn {
+  background-color: #ff4757;
+  color: #fff;
+  margin-left: 0.3rem;
+}
+
+li button.delete-btn:hover {
+  background-color: #ff6b81;
 }
 
 /* ============================
@@ -105,11 +126,17 @@ li button:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fafafa;
-  padding: 0.5rem;
+  background: linear-gradient(90deg, #f6d365, #fda085);
+  padding: 0.6rem;
   margin-bottom: 0.5rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#taskList li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 #taskList li.completed span:nth-child(2) {
@@ -130,16 +157,16 @@ li button:hover {
 }
 
 .priority.low {
-  background-color: #28a745; /* green */
+  background-color: #2ed573; /* bright green */
 }
 
 .priority.medium {
-  background-color: #ffc107; /* yellow */
+  background-color: #ffa502; /* bright orange */
   color: #000;
 }
 
 .priority.high {
-  background-color: #dc3545; /* red */
+  background-color: #ff4757; /* bright red */
 }
 
 /* ============================
@@ -148,12 +175,12 @@ li button:hover {
 #quote {
   text-align: center;
   font-style: italic;
-  color: #555;
-  margin-top: 1rem;
+  color: #fff;
+  background: linear-gradient(90deg, #74b9ff, #a29bfe);
   padding: 0.5rem 1rem;
-  border-left: 4px solid #007bff;
-  background-color: #f1f7ff;
-  border-radius: 4px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: opacity 0.5s;
 }
 
 /* ============================
@@ -168,5 +195,15 @@ li button:hover {
   button {
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
+  }
+
+  #taskList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  li button {
+    margin-left: 0;
+    margin-top: 0.3rem;
   }
 }
