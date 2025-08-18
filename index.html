@@ -8,28 +8,50 @@
 </head>
 <body>
   <div class="container">
-    <h1>Task Manager</h1>
+    <header>
+      <h1>🌟 Task Manager</h1>
+      <img src="task-icon.jpeg" alt="Task Manager Banner"
+        style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;" />
+    </header>
 
-    <img src="task-icon.jpeg" alt="Task Manager Banner"
-      style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;" />
+    <!-- Task Input -->
+    <section class="task-input">
+      <input type="text" id="taskInput" placeholder="Enter a new task..." />
+      <input type="date" id="dueDateInput" />
 
-    <input type="text" id="taskInput" placeholder="Enter a new task..." />
-    <input type="date" id="dueDateInput" />
+      <!-- Priority Selector -->
+      <select id="priorityInput">
+        <option value="low">🟢 Low</option>
+        <option value="medium">🟡 Medium</option>
+        <option value="high">🔴 High</option>
+      </select>
 
-    <label>
-      <input type="checkbox" id="reminderCheckbox" />
-      Set Reminder
-    </label>
+      <label>
+        <input type="checkbox" id="reminderCheckbox" />
+        Set Reminder
+      </label>
 
-    <button onclick="addTask()">Add Task</button>
+      <button onclick="addTask()">➕ Add Task</button>
+    </section>
 
-    <div class="filters" style="margin-top: 1rem;">
+    <!-- Filters -->
+    <section class="filters">
       <button onclick="filterTasks('all')">All</button>
       <button onclick="filterTasks('active')">Active</button>
       <button onclick="filterTasks('completed')">Completed</button>
-    </div>
+    </section>
 
-    <ul id="taskList"></ul>
+    <!-- Task List -->
+    <section class="task-list">
+      <ul id="taskList"></ul>
+    </section>
+
+    <!-- Motivational Quotes Section -->
+    <section class="quotes">
+      <h2>💡 Daily Motivation</h2>
+      <p id="quoteText">"The secret of getting ahead is getting started." – Mark Twain</p>
+      <button onclick="newQuote()">✨ New Quote</button>
+    </section>
   </div>
 
   <script src="script.js"></script>
