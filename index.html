@@ -5,53 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Task Manager</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ Font Awesome for icons -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+    integrity="sha512-+JFEzX3k8oDqZ7hX8roR1opgf6OEoM5vRhpRZrC7QmN6n4cQf6rHnpUo2IFb6HxMkjv3sgFZ2b+VhQvIhDw8Gw==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+  />
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>🌟 Task Manager</h1>
-      <img src="task-icon.jpeg" alt="Task Manager Banner"
-        style="width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;" />
-    </header>
+    <h1>Task Manager</h1>
 
-    <!-- Task Input -->
-    <section class="task-input">
-      <input type="text" id="taskInput" placeholder="Enter a new task..." />
-      <input type="date" id="dueDateInput" />
+    <img src="task-icon.jpeg" alt="Task Manager Banner"
+      style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;" />
 
-      <!-- Priority Selector -->
-      <select id="priorityInput">
-        <option value="low">🟢 Low</option>
-        <option value="medium">🟡 Medium</option>
-        <option value="high">🔴 High</option>
-      </select>
+    <!-- ✅ Task input -->
+    <input type="text" id="taskInput" placeholder="Enter a new task..." />
+    <input type="date" id="dueDateInput" />
 
-      <label>
-        <input type="checkbox" id="reminderCheckbox" />
-        Set Reminder
-      </label>
+    <!-- ✅ Priority selector -->
+    <label for="prioritySelect">Priority:</label>
+    <select id="prioritySelect">
+      <option value="low">Low</option>
+      <option value="medium" selected>Medium</option>
+      <option value="high">High</option>
+    </select>
 
-      <button onclick="addTask()">➕ Add Task</button>
-    </section>
+    <label>
+      <input type="checkbox" id="reminderCheckbox" />
+      Set Reminder
+    </label>
 
-    <!-- Filters -->
-    <section class="filters">
-      <button onclick="filterTasks('all')">All</button>
-      <button onclick="filterTasks('active')">Active</button>
-      <button onclick="filterTasks('completed')">Completed</button>
-    </section>
+    <button onclick="addTask()">
+      <i class="fa fa-plus"></i> Add Task
+    </button>
 
-    <!-- Task List -->
-    <section class="task-list">
-      <ul id="taskList"></ul>
-    </section>
+    <!-- ✅ Filter buttons -->
+    <div class="filters" style="margin-top: 1rem;">
+      <button onclick="filterTasks('all')"><i class="fa fa-list"></i> All</button>
+      <button onclick="filterTasks('active')"><i class="fa fa-tasks"></i> Active</button>
+      <button onclick="filterTasks('completed')"><i class="fa fa-check"></i> Completed</button>
+    </div>
 
-    <!-- Motivational Quotes Section -->
-    <section class="quotes">
-      <h2>💡 Daily Motivation</h2>
-      <p id="quoteText">"The secret of getting ahead is getting started." – Mark Twain</p>
-      <button onclick="newQuote()">✨ New Quote</button>
-    </section>
+    <!-- ✅ Task list -->
+    <ul id="taskList"></ul>
   </div>
 
   <script src="script.js"></script>
