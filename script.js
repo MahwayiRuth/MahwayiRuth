@@ -130,10 +130,18 @@ function newQuote() {
   document.getElementById("quote").textContent = quotes[random];
 }
 
+// Rotate quotes every 10 seconds
+function startQuoteRotation() {
+  newQuote(); // Show first quote immediately
+  setInterval(newQuote, 10000); // Change quote every 10 seconds
+}
+
 // Initialize app
 document.addEventListener("DOMContentLoaded", () => {
   renderTasks();
-  newQuote();
+
+  // Start rotating quotes
+  startQuoteRotation();
 
   // Attach Add Task button
   const addBtn = document.getElementById("addTaskBtn");
@@ -145,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Enter") addTask();
   });
 
-  // Optional: set up filter buttons
+  // Filter buttons
   document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => filterTasks(btn.dataset.filter));
   });
