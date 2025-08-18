@@ -6,13 +6,11 @@
   <title>Task Manager</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- ✅ Font Awesome for icons -->
+  <!-- Font Awesome for icons -->
   <link 
     rel="stylesheet" 
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
-    integrity="sha512-+JFEzX3k8oDqZ7hX8roR1opgf6OEoM5vRhpRZrC7QmN6n4cQf6rHnpUo2IFb6HxMkjv3sgFZ2b+VhQvIhDw8Gw==" 
     crossorigin="anonymous" 
-    referrerpolicy="no-referrer" 
   />
 </head>
 <body>
@@ -22,13 +20,13 @@
     <img src="task-icon.jpeg" alt="Task Manager Banner"
       style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;" />
 
-    <!-- ✅ Task input -->
+    <!-- Task input -->
     <input type="text" id="taskInput" placeholder="Enter a new task..." />
     <input type="date" id="dueDateInput" />
 
-    <!-- ✅ Priority selector -->
-    <label for="prioritySelect">Priority:</label>
-    <select id="prioritySelect">
+    <!-- Priority selector -->
+    <label for="priorityInput">Priority:</label>
+    <select id="priorityInput">
       <option value="low">Low</option>
       <option value="medium" selected>Medium</option>
       <option value="high">High</option>
@@ -39,19 +37,23 @@
       Set Reminder
     </label>
 
-    <button onclick="addTask()">
+    <!-- Add Task button -->
+    <button id="addTaskBtn">
       <i class="fa fa-plus"></i> Add Task
     </button>
 
-    <!-- ✅ Filter buttons -->
+    <!-- Filter buttons -->
     <div class="filters" style="margin-top: 1rem;">
-      <button onclick="filterTasks('all')"><i class="fa fa-list"></i> All</button>
-      <button onclick="filterTasks('active')"><i class="fa fa-tasks"></i> Active</button>
-      <button onclick="filterTasks('completed')"><i class="fa fa-check"></i> Completed</button>
+      <button class="filter-btn" data-filter="all"><i class="fa fa-list"></i> All</button>
+      <button class="filter-btn" data-filter="active"><i class="fa fa-tasks"></i> Active</button>
+      <button class="filter-btn" data-filter="completed"><i class="fa fa-check"></i> Completed</button>
     </div>
 
-    <!-- ✅ Task list -->
+    <!-- Task list -->
     <ul id="taskList"></ul>
+
+    <!-- Daily quote -->
+    <p id="quote" style="margin-top:1rem; font-style:italic;"></p>
   </div>
 
   <script src="script.js"></script>
